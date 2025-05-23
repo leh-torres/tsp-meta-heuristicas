@@ -1,3 +1,7 @@
+import AlgoritmoGenetico as ag
+import time
+import matplotlib.pyplot as plt
+
 GRAFO = {
   1: {2: 20, 8: 29, 12: 25, 9: 29},
   2: {1: 20, 3: 25, 8: 28, 12: 29},
@@ -19,9 +23,54 @@ GRAFO = {
   18: {14: 19, 15: 21, 17: 15}
 }
 
-for i in GRAFO:
-  print(i)
+'''for i in GRAFO:
+  print(f'Vertice: {i}')
+  print('\tVisinhos')
   for j in GRAFO[i]:
-    print(f'{j}: {GRAFO[i][j]}', end=' ')
-  print()
+    print(f'\t Vertice {j} - Distancia {GRAFO[i][j]}')
+  print()'''
 
+print('---------------- Algoritmo Genético ----------------')
+
+tamanho_da_populacao = 200
+geracoes = 500
+taxa_de_mutacao = 0.001
+
+algoritmo_genetico = ag.AlgoritmoGenetico(GRAFO, tamanho_da_populacao, geracoes, taxa_de_mutacao)
+
+inicio_ag = time.time()
+_, _, melhores_custos= algoritmo_genetico.iniciar()
+fim_ag = time.time()
+
+tempo_ag = fim_ag - inicio_ag
+print(f'Tempo de execução algoritmo genético: {tempo_ag:.2f} segundos')
+
+plt.figure(figsize=(10, 5))
+plt.plot(melhores_custos, label="Melhor custo por geração", color="blue")
+plt.title("Convergência do Algoritmo Genético (TSP)")
+plt.xlabel("Geração")
+plt.ylabel("Custo da melhor rota")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+print('-----------------------------------------------------')
+
+dim = 5
+intervalo = (-500, 500)
+inicio_ag = time.time()
+_, _, melhores_custos= algoritmo_genetico.iniciar_continuo(dim, intervalo)
+fim_ag = time.time()
+
+tempo_ag = fim_ag - inicio_ag
+print(f'Tempo de execução algoritmo genético com schwefel: {tempo_ag:.2f} segundos')
+
+plt.figure(figsize=(10, 5))
+plt.plot(melhores_custos, label="Melhor custo por geração", color="blue")
+plt.title("Convergência do Algoritmo Genético (TSP) com schwefel")
+plt.xlabel("Geração")
+plt.ylabel("Custo da melhor rota")
+plt.legend()
+plt.tight_layout()
+plt.show()
+      
