@@ -2,15 +2,20 @@ import numpy as np
 import random
 
 class AlgoritmoGenetico:
-    def __init__(self, grafo, tamanho=100, geracoes=500, taxa_de_mutacao=0.01):
+    def __init__(self, grafo, tamanho=100, geracoes=500, taxa_de_mutacao=0.01, cidade_inicial=None):
         self.grafo = grafo
         self.tamanho_pop = tamanho
         self.geracoes = geracoes
         self.taxa_de_mutacao = taxa_de_mutacao
+        self.cidade_inicial = cidade_inicial
 
     def iniciar(self):
         cidades = list(self.grafo.keys())
-        populacao = [list(np.random.permutation(cidades)) for _ in range(self.tamanho_pop)]
+        populacao = []
+        for _ in range(self.tamanho_pop):
+            perm = list(np.random.permutation([c for c in cidades if c != self.cidade_inicial]))
+            perm = [self.cidade_inicial] + perm  # força o início com a cidade inicial
+            populacao.append(perm)
         
         for i in range(self.geracoes):
 

@@ -36,7 +36,7 @@ tamanho_da_populacao = 200
 geracoes = 500
 taxa_de_mutacao = 0.001
 
-algoritmo_genetico = ag.AlgoritmoGenetico(GRAFO, tamanho_da_populacao, geracoes, taxa_de_mutacao)
+algoritmo_genetico = ag.AlgoritmoGenetico(GRAFO, tamanho_da_populacao, geracoes, taxa_de_mutacao, 1)
 
 inicio_ag = time.time()
 _, _, melhores_custos= algoritmo_genetico.iniciar()
